@@ -1,0 +1,1477 @@
+SQL> CREATE TABLE PROFESOR
+  2  (DNI NUMBER(8) PRIMARY KEY,)
+  3  P VARCHAR (60),
+  4  CAR NUMBER (3),
+  5  CAT VARCHAR2(5),
+  6  
+SQL> 
+SQL> DESCRIBE PROFESOR
+ERROR:
+ORA-04043: object PROFESOR does not exist 
+
+
+SQL> CREATE TABLE PROFESOR
+  2  (DNI NUMBER (8) PRIMARY KEY,)
+  3  P
+  4  
+SQL> DESCRIBE PROFESOR
+ERROR:
+ORA-04043: object PROFESOR does not exist 
+
+
+SQL> CREATE TABLE PROFESOR
+  2  (DNI NUMBER (8) PRIMARY KEY,
+  3  P VARCHAR2 (60),
+  4  CAR NUMBER (3),
+  5  CAT VARCHAR2 (5),
+  6  FOREIGN KEY (CAR) REFERENCES AREA ON DELETE SET NULL);
+
+Table created.
+
+SQL> DESCRIBE PROFESOR
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DNI                                       NOT NULL NUMBER(8)
+ P                                                  VARCHAR2(60)
+ CAR                                                NUMBER(3)
+ CAT                                                VARCHAR2(5)
+
+SQL> 
+SQL> 
+SQL> CREATE TABLE ASIGNATURA
+  2  (CAS NUMBER (3) PRIMARY KEY,
+  3  A VARCHAR (50) NOT NULL,
+  4  T CHAR (4) NOT NULL,
+  5  CUR NUMBER (1) CHECK (CUR BETWEEN 1 AND 5),
+  6  CAR NUMBER (3) REFERENCES AREA ON DELETE SET NULL,
+  7  CT NUMBER (3,1) DEFAULT 0.0,
+  8  CP NUMBER (3,1) DEFAULT 0.0,
+  9  CL NUMBER (3,1) DEFAULT 0.0);
+CREATE TABLE ASIGNATURA
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> DESCRIBE ASIGNATURA
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CAS                                       NOT NULL NUMBER(3)
+ A                                         NOT NULL VARCHAR2(50)
+ T                                         NOT NULL CHAR(4)
+ CUR                                                NUMBER(1)
+ CAR                                                NUMBER(3)
+ CT                                                 NUMBER(3,1)
+ CP                                                 NUMBER(3,1)
+ CL                                                 NUMBER(3,1)
+
+SQL> DROP ASIGNATURA
+  2  ;
+DROP ASIGNATURA
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> DROP ASIGNATURA;
+DROP ASIGNATURA
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option 
+
+
+SQL> DROP TABLE ASIGNATURA
+  2  ;
+
+Table dropped.
+
+SQL> DESCRIBE ASIGNATURA
+ERROR:
+ORA-04043: object ASIGNATURA does not exist 
+
+
+SQL> CREATE TABLE ASIGNATURA
+  2  (CAS NUMBER (3) PRIMARY KEY,
+  3  A VARCHAR2 (50) NOT NULL,
+  4  T CHAR (4) NOT NULL,
+  5  CUR NUMBER (1) CHECK (CUR BETWEEN 1 AND 5),
+  6  CAR NUMBER (3) REFERENCES AREA ON DELETE SET NULL,
+  7  CT NUMBER (3,1) DEFAULT 0.0,
+  8  CP NUMBER (3,1) DEFAULT 0.0,
+  9  CL NUMBER (3,1) DEFAULT 0.0);
+
+Table created.
+
+SQL> DESCRIBE ASIGNATURA
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CAS                                       NOT NULL NUMBER(3)
+ A                                         NOT NULL VARCHAR2(50)
+ T                                         NOT NULL CHAR(4)
+ CUR                                                NUMBER(1)
+ CAR                                                NUMBER(3)
+ CT                                                 NUMBER(3,1)
+ CP                                                 NUMBER(3,1)
+ CL                                                 NUMBER(3,1)
+
+SQL> CREATE TABLE PLAN_DOCENTE
+  2  (DNI NUMBER (8),
+  3  CAS NUMBER (3),
+  4  CTA NUMBER (3,1  DEFAULT 0.0,
+  5  
+SQL> 
+SQL> DESCRIBE TABLE PLAN_DOCENTE
+Usage: DESCRIBE [schema.]object[@db_link]
+SQL> DESCRIBE PLAN DOCENTE
+Usage: DESCRIBE [schema.]object[@db_link]
+SQL> DESCRIBE PLAN_DOCENTE
+ERROR:
+ORA-04043: object PLAN_DOCENTE does not exist 
+
+
+SQL> CREATE TABLE PLAN_DOCENTE
+  2  (DNI NUMBER (8),
+  3  CAS NUMBER (3),
+  4  CTA NUMBER (3,1) DEFAULT 0.0,
+  5  CPA NUMBER (3,1) DEFAULT 0.0,
+  6  CLA NUMBER (3,1) DEFAULT 0.0,
+  7  FI DATE DEFAULT SYSDATE,
+  8  FF DATE,
+  9  PRIMARY KEY (DNI, CAS, FI),
+ 10  FOREIGN KEY (CAS) REFERENCES ASIGNATURA ON DELETE CASCADE,
+ 11  FOREIGN KEY (DNI) REFERENCES PROFESOR ON DELETE CASCADE,
+ 12  CHECK (FF >= FI));
+
+Table created.
+
+SQL> DESCRIBE PLAN_DOCENTE
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DNI                                       NOT NULL NUMBER(8)
+ CAS                                       NOT NULL NUMBER(3)
+ CTA                                                NUMBER(3,1)
+ CPA                                                NUMBER(3,1)
+ CLA                                                NUMBER(3,1)
+ FI                                        NOT NULL DATE
+ FF                                                 DATE
+
+SQL> 
+SQL> INSERT INTO DEPARTAMENTO
+  2  VALUES (1, 'ANALISIS MATEMTICO');
+
+1 row created.
+
+SQL> DELETECD=1 FROM DEPARTAMENTO;
+SP2-0734: unknown command beginning "DELETECD=1..." - rest of line ignored.
+SQL> DELETE CD=1 FROM DEPARTAMENTO;
+DELETE CD=1 FROM DEPARTAMENTO
+         *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> DELETE 1 FROM DEPARTAMENTO;
+DELETE 1 FROM DEPARTAMENTO
+       *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> DELETE * FROM DEPARTAMENTO;
+DELETE * FROM DEPARTAMENTO
+       *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> DELETE * FROM DEPARTAMENTO WHERE CD = 1;
+DELETE * FROM DEPARTAMENTO WHERE CD = 1
+       *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> DESCRIBE DEPARTAMENTO
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CD                                        NOT NULL NUMBER(2)
+ D                                                  VARCHAR2(60)
+
+SQL> SELECT * FROM DEPARTAMENTO
+  2  ;
+
+        CD D                                                                    
+---------- ------------------------------------------------------------         
+         1 ANALISIS MATEMTICO                                                   
+
+SQL> DELETE FROM DEPARTAMENTO WHERE CD = 1;
+
+1 row deleted.
+
+SQL> SELECT * FROM DEPARTAMENTO;
+
+no rows selected
+
+SQL> INSERT INTO DEPARTAMENTO
+  2  VALUES (1, 'ANALISIS MATEMATICO');
+
+1 row created.
+
+SQL> COMMIT WORK;
+
+Commit complete.
+
+SQL> INSERT INTO DEPARTAMENTO
+  2  VALUES (2, 'ASTROFISICA');
+
+1 row created.
+
+SQL> INSERT INTO DEPARTAMENTO
+  2  VALUES (3, 'ESTADISTICA, INVESTIGACION OPERATIVA Y COMPUTACION');
+
+1 row created.
+
+SQL> SELECT * FROM DEPARTAMENTO;
+
+        CD D                                                                    
+---------- ------------------------------------------------------------         
+         1 ANALISIS MATEMATICO                                                  
+         2 ASTROFISICA                                                          
+         3 ESTADISTICA, INVESTIGACION OPERATIVA Y COMPUTACION                   
+
+SQL> INSERT INTO DEPARTAMENTO
+  2  VALUES (4, 'MATEMATICA FUNDAMENTAL');TACION');
+ERROR:
+ORA-01756: quoted string not properly terminated 
+
+
+SQL> INSERT INTO DEPARTAMENTO
+  2  VALUES (4, 'MATEMATICA FUNDAMENTAL');
+
+1 row created.
+
+SQL> SELECT * FROM DEPARTAMENTO;
+
+        CD D                                                                    
+---------- ------------------------------------------------------------         
+         1 ANALISIS MATEMATICO                                                  
+         2 ASTROFISICA                                                          
+         3 ESTADISTICA, INVESTIGACION OPERATIVA Y COMPUTACION                   
+         4 MATEMATICA FUNDAMENTAL                                               
+
+SQL> INSERT INTO AREA
+  2  VALUES (1, 'ALGEBRA', 4);
+
+1 row created.
+
+SQL> COMMIT WORK;
+
+Commit complete.
+
+SQL> INSERT INTO AREA
+  2  VALUES (2, 'ANALISIS MATEMATICO', 1);
+
+1 row created.
+
+SQL> SELECT * FROM AREA
+  2  ;
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         1 ALGEBRA                                                              
+         4                                                                      
+                                                                                
+         2 ANALISIS MATEMATICO                                                  
+         1                                                                      
+                                                                                
+
+SQL> INSERT INTO AREA
+  2  VALUES (3, 'ASTRONOMIA Y ASTROFISICA', 2);
+
+1 row created.
+
+SQL> SELECT * FROM AREA
+  2  ;
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         1 ALGEBRA                                                              
+         4                                                                      
+                                                                                
+         2 ANALISIS MATEMATICO                                                  
+         1                                                                      
+                                                                                
+         3 ASTRONOMIA Y ASTROFISICA                                             
+         2                                                                      
+                                                                                
+
+SQL> INSERT INTO AREA
+  2  VALUES (4, 'CIENCIAS DE LA COMPUTACION E INTELIGENCIA ARTIFICIAL', 3);
+
+1 row created.
+
+SQL> SELECT * FROM AREA
+  2  ;
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         1 ALGEBRA                                                              
+         4                                                                      
+                                                                                
+         2 ANALISIS MATEMATICO                                                  
+         1                                                                      
+                                                                                
+         3 ASTRONOMIA Y ASTROFISICA                                             
+         2                                                                      
+                                                                                
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         4 CIENCIAS DE LA COMPUTACION E INTELIGENCIA ARTIFICIAL                 
+         3                                                                      
+                                                                                
+
+SQL> INSERT INTO AREA
+  2  VALUES (5, 'DIDACTICA DE LA MATEMATICA', 1);
+
+1 row created.
+
+SQL> SELECT * FROM AREA
+  2  ;
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         1 ALGEBRA                                                              
+         4                                                                      
+                                                                                
+         2 ANALISIS MATEMATICO                                                  
+         1                                                                      
+                                                                                
+         3 ASTRONOMIA Y ASTROFISICA                                             
+         2                                                                      
+                                                                                
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         4 CIENCIAS DE LA COMPUTACION E INTELIGENCIA ARTIFICIAL                 
+         3                                                                      
+                                                                                
+         5 DIDACTICA DE LA MATEMATICA                                           
+         1                                                                      
+                                                                                
+
+SQL> INSERT INTO AREA
+  2  VALUES (6, 'ESTADISTICA E INVESTIGACION OPERATIVA', 3);
+
+1 row created.
+
+SQL> INSERT INTO AREA
+  2  VALUES (7, 'LENGUAJES Y SISTEMAS INFORMATICOS', 3);
+
+1 row created.
+
+SQL> INSERT INTO AREA
+  2  VALUES (8, 'MATEMATICA APLICADA', 1);
+
+1 row created.
+
+SQL> SELECT * FROM AREA
+  2  ;
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         1 ALGEBRA                                                              
+         4                                                                      
+                                                                                
+         2 ANALISIS MATEMATICO                                                  
+         1                                                                      
+                                                                                
+         3 ASTRONOMIA Y ASTROFISICA                                             
+         2                                                                      
+                                                                                
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         4 CIENCIAS DE LA COMPUTACION E INTELIGENCIA ARTIFICIAL                 
+         3                                                                      
+                                                                                
+         5 DIDACTICA DE LA MATEMATICA                                           
+         1                                                                      
+                                                                                
+         6 ESTADISTICA E INVESTIGACION OPERATIVA                                
+         3                                                                      
+                                                                                
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         7 LENGUAJES Y SISTEMAS INFORMATICOS                                    
+         3                                                                      
+                                                                                
+         8 MATEMATICA APLICADA                                                  
+         1                                                                      
+                                                                                
+
+8 rows selected.
+
+SQL> COMMIT WORK;
+
+Commit complete.
+
+SQL> INSERT INTO PROFESOR
+  2  VALUES (1111, 'JUAN', 6, 'CU');
+
+1 row created.
+
+SQL> INSERT INTO PROFESOR
+  2  VALUES (2222, 'CARLOS', 6, 'TU');
+
+1 row created.
+
+SQL> DELETE FROM PROFESOR WHERE DNI=2222;
+
+1 row deleted.
+
+SQL> INSERT INTO PROFESOR
+  2  VALUES (2222, 'CARLOS', 7, 'TU');
+
+1 row created.
+
+SQL> INSERT INTO PROFESOR
+  2  VALUES (3333, 'PEDRO', 4, 'TEU');
+
+1 row created.
+
+SQL> INSERT INTO PROFESOR
+  2  VALUES (4444, 'MARIA', 7, 'TU');
+
+1 row created.
+
+SQL> INSERT INTO PROFESOR
+  2  VALUES (5555, 'IVAN', 1, 'CEU');
+
+1 row created.
+
+SQL> SELECT * FROM PROFESOR
+  2  ;
+
+       DNI P                                                                    
+---------- ------------------------------------------------------------         
+       CAR CAT                                                                  
+---------- -----                                                                
+      1111 JUAN                                                                 
+         6 CU                                                                   
+                                                                                
+      2222 CARLOS                                                               
+         7 TU                                                                   
+                                                                                
+      3333 PEDRO                                                                
+         4 TEU                                                                  
+                                                                                
+
+       DNI P                                                                    
+---------- ------------------------------------------------------------         
+       CAR CAT                                                                  
+---------- -----                                                                
+      4444 MARIA                                                                
+         7 TU                                                                   
+                                                                                
+      5555 IVAN                                                                 
+         1 CEU                                                                  
+                                                                                
+
+SQL> COMMIT WORK;
+
+Commit complete.
+
+SQL> INSERT INTO PROFESOR
+  2  VALUES (6666, 'CARMEN', 3, 'CD');
+
+1 row created.
+
+SQL> INSERT INTO PROFESOR
+  2  VALUES (7777, 'MARIO', 2, 'TU');
+
+1 row created.
+
+SQL> INSERT INTO PROFESOR
+  2  VALUES (8888, 'FRANCISCO', 5, 'TU');
+
+1 row created.
+
+SQL> SELECT * FROM PROFESOR
+  2  ;
+
+       DNI P                                                                    
+---------- ------------------------------------------------------------         
+       CAR CAT                                                                  
+---------- -----                                                                
+      1111 JUAN                                                                 
+         6 CU                                                                   
+                                                                                
+      2222 CARLOS                                                               
+         7 TU                                                                   
+                                                                                
+      3333 PEDRO                                                                
+         4 TEU                                                                  
+                                                                                
+
+       DNI P                                                                    
+---------- ------------------------------------------------------------         
+       CAR CAT                                                                  
+---------- -----                                                                
+      4444 MARIA                                                                
+         7 TU                                                                   
+                                                                                
+      5555 IVAN                                                                 
+         1 CEU                                                                  
+                                                                                
+      6666 CARMEN                                                               
+         3 CD                                                                   
+                                                                                
+
+       DNI P                                                                    
+---------- ------------------------------------------------------------         
+       CAR CAT                                                                  
+---------- -----                                                                
+      7777 MARIO                                                                
+         2 TU                                                                   
+                                                                                
+      8888 FRANCISCO                                                            
+         5 TU                                                                   
+                                                                                
+
+8 rows selected.
+
+SQL> INSERT INTO PROFESOR
+  2  VALUES (9999, 'ANGELA', 8, 'TEU');
+
+1 row created.
+
+SQL> INSERT INTO PROFESOR
+  2  VALUES (1010, 'DAVID', 4, 'TU');
+
+1 row created.
+
+SQL> INSERT INTO PROFESOR
+  2  VALUES (2020, 'SOLEDAD', 7, 'CU');
+
+1 row created.
+
+SQL> INSERT INTO PROFESOR
+  2  VALUES (3030, 'JOSE MANUEL', 6, 'TEU');
+
+1 row created.
+
+SQL> SELECT * FROM PROFESOR
+  2  ;
+
+       DNI P                                                                    
+---------- ------------------------------------------------------------         
+       CAR CAT                                                                  
+---------- -----                                                                
+      1111 JUAN                                                                 
+         6 CU                                                                   
+                                                                                
+      2222 CARLOS                                                               
+         7 TU                                                                   
+                                                                                
+      3333 PEDRO                                                                
+         4 TEU                                                                  
+                                                                                
+
+       DNI P                                                                    
+---------- ------------------------------------------------------------         
+       CAR CAT                                                                  
+---------- -----                                                                
+      4444 MARIA                                                                
+         7 TU                                                                   
+                                                                                
+      5555 IVAN                                                                 
+         1 CEU                                                                  
+                                                                                
+      6666 CARMEN                                                               
+         3 CD                                                                   
+                                                                                
+
+       DNI P                                                                    
+---------- ------------------------------------------------------------         
+       CAR CAT                                                                  
+---------- -----                                                                
+      7777 MARIO                                                                
+         2 TU                                                                   
+                                                                                
+      8888 FRANCISCO                                                            
+         5 TU                                                                   
+                                                                                
+      9999 ANGELA                                                               
+         8 TEU                                                                  
+                                                                                
+
+       DNI P                                                                    
+---------- ------------------------------------------------------------         
+       CAR CAT                                                                  
+---------- -----                                                                
+      1010 DAVID                                                                
+         4 TU                                                                   
+                                                                                
+      2020 SOLEDAD                                                              
+         7 CU                                                                   
+                                                                                
+      3030 JOSE MANUEL                                                          
+         6 TEU                                                                  
+                                                                                
+
+12 rows selected.
+
+SQL> COMMIT WORK;
+
+Commit complete.
+
+SQL>  INSERT INTO ASIGNATURA
+  2  VALUES (1, 'BASE DE DATOS', 'GII', 3, 7, 3, 1.5, 1.5);
+
+1 row created.
+
+SQL> DELETE * FROM ASIGNATURA WHERE CAS = 1;
+DELETE * FROM ASIGNATURA WHERE CAS = 1
+       *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> DELETE FROM ASIGNATURA WHERE CAS = 1;
+
+1 row deleted.
+
+SQL> SELECT * FROM ASIGNATURA;
+
+no rows selected
+
+SQL>  INSERT INTO ASIGNATURA
+  2  VALUES (1, 'BASES DE DATOS', 'GII', 3, 7, 3, 1.5, 1.5);
+
+1 row created.
+
+SQL> SELECT * FROM ASIGNATURA;
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         1 BASES DE DATOS                                     GII           3   
+         7          3        1.5        1.5                                     
+                                                                                
+
+SQL>  INSERT INTO ASIGNATURA
+  2  VALUES (2, 'INTELIGENCIA ARTIFICIAL', 'GII', 3, 4, 1.5, 1.5, 3);
+
+1 row created.
+
+SQL>  INSERT INTO ASIGNATURA
+  2  VALUES (3, 'ALMACENES DE DATOS', 'MII', 1, 7, 1.5, 0, 1.5);
+
+1 row created.
+
+SQL> COMMIT WORK;
+
+Commit complete.
+
+SQL>  INSERT INTO ASIGNATURA
+  2  VALUES (4, 'MINERIA DE DATOS', 'MII', 1, 7, 1.5, 0, 1.5);
+
+1 row created.
+
+SQL>  INSERT INTO ASIGNATURA
+  2  VALUES (5, 'INFORMATICA BASICA', 'GII', 1, 7, 3, 1.5, 1.5);
+
+1 row created.
+
+SQL>  INSERT INTO ASIGNATURA
+  2  VALUES (6, 'ALGEBRA', 'GII', 1, 1, 3, 3, 0);
+
+1 row created.
+
+SQL>  INSERT INTO ASIGNATURA
+  2  VALUES (7, 'CALCULO', 'GII', 1, 8, 3, 3, 0);
+
+1 row created.
+
+SQL> SELECT * FROM ASIGNATURA;
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         1 BASES DE DATOS                                     GII           3   
+         7          3        1.5        1.5                                     
+                                                                                
+         2 INTELIGENCIA ARTIFICIAL                            GII           3   
+         4        1.5        1.5          3                                     
+                                                                                
+         3 ALMACENES DE DATOS                                 MII           1   
+         7        1.5          0        1.5                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         4 MINERIA DE DATOS                                   MII           1   
+         7        1.5          0        1.5                                     
+                                                                                
+         5 INFORMATICA BASICA                                 GII           1   
+         7          3        1.5        1.5                                     
+                                                                                
+         6 ALGEBRA                                            GII           1   
+         1          3          3          0                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         7 CALCULO                                            GII           1   
+         8          3          3          0                                     
+                                                                                
+
+7 rows selected.
+
+SQL> COMMIT WORK;
+
+Commit complete.
+
+SQL>  INSERT INTO ASIGNATURA
+  2  VALUES (8, 'OPTIMIZACION', 'GII', 1, 6, 3, 1.5, 1.5);
+
+1 row created.
+
+SQL>  INSERT INTO ASIGNATURA
+  2  VALUES (9, 'GESTION DE RIESGOS', 'GII', 3, 4, 3, 0, 3);
+
+1 row created.
+
+SQL>  INSERT INTO ASIGNATURA
+  2  VALUES (10, 'ASTRONOMIA', 'GF' 2, 3, 3, 1.5, 1.5);
+VALUES (10, 'ASTRONOMIA', 'GF' 2, 3, 3, 1.5, 1.5)
+                               *
+ERROR at line 2:
+ORA-00917: missing comma 
+
+
+SQL>  INSERT INTO ASIGNATURA
+  2  VALUES (10, 'ASTRONOMIA', 'GF', 2, 3, 3, 1.5, 1.5);
+
+1 row created.
+
+SQL>  INSERT INTO ASIGNATURA
+  2  VALUES (11, 'ENSENANZA DE LA MATEMATICA', 'GM', 2, 5, 6, 0, 0);
+
+1 row created.
+
+SQL>  INSERT INTO ASIGNATURA
+  2  VALUES (12, 'ANALISIS COMPLEJO', 'GM', 4, 2, 4.5, 3, 0);
+
+1 row created.
+
+SQL> SELECT * FROM ASIGNATURA;
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         9 GESTION DE RIESGOS                                 GII           3   
+         4          3          0          3                                     
+                                                                                
+         1 BASES DE DATOS                                     GII           3   
+         7          3        1.5        1.5                                     
+                                                                                
+         2 INTELIGENCIA ARTIFICIAL                            GII           3   
+         4        1.5        1.5          3                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         3 ALMACENES DE DATOS                                 MII           1   
+         7        1.5          0        1.5                                     
+                                                                                
+         4 MINERIA DE DATOS                                   MII           1   
+         7        1.5          0        1.5                                     
+                                                                                
+         5 INFORMATICA BASICA                                 GII           1   
+         7          3        1.5        1.5                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         6 ALGEBRA                                            GII           1   
+         1          3          3          0                                     
+                                                                                
+         7 CALCULO                                            GII           1   
+         8          3          3          0                                     
+                                                                                
+         8 OPTIMIZACION                                       GII           1   
+         6          3        1.5        1.5                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+        10 ASTRONOMIA                                         GF            2   
+         3          3        1.5        1.5                                     
+                                                                                
+        11 ENSENANZA DE LA MATEMATICA                         GM            2   
+         5          6          0          0                                     
+                                                                                
+        12 ANALISIS COMPLEJO                                  GM            4   
+         2        4.5          3          0                                     
+                                                                                
+
+12 rows selected.
+
+SQL>  INSERT INTO ASIGNATURA
+  2  VALUES (9, 'GESTION DE RIESGOS', 'GII', 3, 4, 3, 0, 3);
+ INSERT INTO ASIGNATURA
+*
+ERROR at line 1:
+ORA-00001: unique constraint (ALU0100913293.SYS_C0021225) violated 
+
+
+SQL> SELECT FROM ASIGNATURA WHERE CAS=9;
+SELECT FROM ASIGNATURA WHERE CAS=9
+       *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> SELECT * FROM ASIGNATURA WHERE CAS=9;
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         9 GESTION DE RIESGOS                                 GII           3   
+         4          3          0          3                                     
+                                                                                
+
+SQL> SELECT * FROM ASIGNATURA;
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         9 GESTION DE RIESGOS                                 GII           3   
+         4          3          0          3                                     
+                                                                                
+         1 BASES DE DATOS                                     GII           3   
+         7          3        1.5        1.5                                     
+                                                                                
+         2 INTELIGENCIA ARTIFICIAL                            GII           3   
+         4        1.5        1.5          3                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         3 ALMACENES DE DATOS                                 MII           1   
+         7        1.5          0        1.5                                     
+                                                                                
+         4 MINERIA DE DATOS                                   MII           1   
+         7        1.5          0        1.5                                     
+                                                                                
+         5 INFORMATICA BASICA                                 GII           1   
+         7          3        1.5        1.5                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         6 ALGEBRA                                            GII           1   
+         1          3          3          0                                     
+                                                                                
+         7 CALCULO                                            GII           1   
+         8          3          3          0                                     
+                                                                                
+         8 OPTIMIZACION                                       GII           1   
+         6          3        1.5        1.5                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+        10 ASTRONOMIA                                         GF            2   
+         3          3        1.5        1.5                                     
+                                                                                
+        11 ENSENANZA DE LA MATEMATICA                         GM            2   
+         5          6          0          0                                     
+                                                                                
+        12 ANALISIS COMPLEJO                                  GM            4   
+         2        4.5          3          0                                     
+                                                                                
+
+12 rows selected.
+
+SQL> SELECT * FROM ASIGNATURA;
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         9 GESTION DE RIESGOS                                 GII           3   
+         4          3          0          3                                     
+                                                                                
+         1 BASES DE DATOS                                     GII           3   
+         7          3        1.5        1.5                                     
+                                                                                
+         2 INTELIGENCIA ARTIFICIAL                            GII           3   
+         4        1.5        1.5          3                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         3 ALMACENES DE DATOS                                 MII           1   
+         7        1.5          0        1.5                                     
+                                                                                
+         4 MINERIA DE DATOS                                   MII           1   
+         7        1.5          0        1.5                                     
+                                                                                
+         5 INFORMATICA BASICA                                 GII           1   
+         7          3        1.5        1.5                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         6 ALGEBRA                                            GII           1   
+         1          3          3          0                                     
+                                                                                
+         7 CALCULO                                            GII           1   
+         8          3          3          0                                     
+                                                                                
+         8 OPTIMIZACION                                       GII           1   
+         6          3        1.5        1.5                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+        10 ASTRONOMIA                                         GF            2   
+         3          3        1.5        1.5                                     
+                                                                                
+        11 ENSENANZA DE LA MATEMATICA                         GM            2   
+         5          6          0          0                                     
+                                                                                
+        12 ANALISIS COMPLEJO                                  GM            4   
+         2        4.5          3          0                                     
+                                                                                
+
+12 rows selected.
+
+SQL> DELETE FROM ASIGNATURA WHERE CAS=9;
+
+1 row deleted.
+
+SQL> SELECT * FROM ASIGNATURA WHERE CAS=9;
+
+no rows selected
+
+SQL>  INSERT INTO ASIGNATURA
+  2  VALUES (9, 'GESTION DE RIESGOS', 'GII', 3, 4, 3, 0, 3);
+
+1 row created.
+
+SQL> SELECT * FROM ASIGNATURA WHERE CAS=9;
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         9 GESTION DE RIESGOS                                 GII           3   
+         4          3          0          3                                     
+                                                                                
+
+SQL> SELECT FROM ASIGNATURA;
+SELECT FROM ASIGNATURA
+       *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> SELECT * FROM ASIGNATURA;
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         1 BASES DE DATOS                                     GII           3   
+         7          3        1.5        1.5                                     
+                                                                                
+         2 INTELIGENCIA ARTIFICIAL                            GII           3   
+         4        1.5        1.5          3                                     
+                                                                                
+         3 ALMACENES DE DATOS                                 MII           1   
+         7        1.5          0        1.5                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         4 MINERIA DE DATOS                                   MII           1   
+         7        1.5          0        1.5                                     
+                                                                                
+         5 INFORMATICA BASICA                                 GII           1   
+         7          3        1.5        1.5                                     
+                                                                                
+         6 ALGEBRA                                            GII           1   
+         1          3          3          0                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         7 CALCULO                                            GII           1   
+         8          3          3          0                                     
+                                                                                
+         8 OPTIMIZACION                                       GII           1   
+         6          3        1.5        1.5                                     
+                                                                                
+        10 ASTRONOMIA                                         GF            2   
+         3          3        1.5        1.5                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+        11 ENSENANZA DE LA MATEMATICA                         GM            2   
+         5          6          0          0                                     
+                                                                                
+        12 ANALISIS COMPLEJO                                  GM            4   
+         2        4.5          3          0                                     
+                                                                                
+         9 GESTION DE RIESGOS                                 GII           3   
+         4          3          0          3                                     
+                                                                                
+
+12 rows selected.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (4444, 1, 3, 1.5, 1.5, '01-SEP-11', NULL);
+
+1 row created.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (4444, 4, 1.5, 0, 1.5, '01-SEP-08', '31-AUG-10');
+
+1 row created.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (4444, 5, 3, 0, 0, '01-SEP-10', NULL);
+
+1 row created.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (1111, 8, 3, 1.5, 1.5, '01-SEP-07', '31-AUG-09');
+
+1 row created.
+
+SQL> COMMIT WORK;
+
+Commit complete.
+
+SQL> SELECT * FROM PLAN_DOCENTE;
+
+       DNI        CAS        CTA        CPA        CLA FI        FF             
+---------- ---------- ---------- ---------- ---------- --------- ---------      
+      4444          1          3        1.5        1.5 01-SEP-11                
+      4444          4        1.5          0        1.5 01-SEP-08 31-AUG-10      
+      4444          5          3          0          0 01-SEP-10                
+      1111          8          3        1.5        1.5 01-SEP-07 31-AUG-09      
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (1111, 8, 3, 0, 0, '01-SEP-09', NULL);
+
+1 row created.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (3030, 8, 0, 1.5, 1.5, '01-SEP-09', NULL);
+
+1 row created.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (2222, 4, 1.5, 0, 1.5, '01-SEP-09', NULL);
+
+1 row created.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (2222, 3, 1.5, 0, 1.5, '01-SEP-06', '31-AUG-07');
+
+1 row created.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (1010, 2, 1.5, 1.5, 3, '01-SEP-05', '31-AUG-08');
+
+1 row created.
+
+SQL> COMMIT WORK;
+
+Commit complete.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (3333, 2, 1.5, 1.5, 3, '01-SEP-08', NULL);
+
+1 row created.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (1010, 9, 3, 0, 3, '01-SEP-08', '31-AUG-09');
+
+1 row created.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (1010, 9, 1.5, 0, 1.5, '01-SEP-09', NULL);
+
+1 row created.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (9999, 7, 3, 3, 0, '01-SEP-10', NULL);
+
+1 row created.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (5555, 6, 3, 3, 0, '31-MAR-10', NULL);
+
+1 row created.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (6666, 10, 3, 1.5, 1.5, '01-SEP-08', '31-AUG-11');
+
+1 row created.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (2020, 3, 1.5, 0, 1.5, '01-SEP-08', NULL);
+
+1 row created.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (7777, 12, 4.5, 3, 0, '01-SEP-10', NULL);
+
+1 row created.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (8888, 11, 6, 0, 0, '01-SEP-09', NULL);
+
+1 row created.
+
+SQL> INSERT INTO PLAN_DOCENTE
+  2  VALUES (3333, 9, 1.5, 0, 1.5, '01-SEP-09', NULL);
+
+1 row created.
+
+SQL> SELECT * FROM PLAN_DOCENTE;
+
+       DNI        CAS        CTA        CPA        CLA FI        FF             
+---------- ---------- ---------- ---------- ---------- --------- ---------      
+      4444          1          3        1.5        1.5 01-SEP-11                
+      4444          4        1.5          0        1.5 01-SEP-08 31-AUG-10      
+      4444          5          3          0          0 01-SEP-10                
+      1111          8          3        1.5        1.5 01-SEP-07 31-AUG-09      
+      1111          8          3          0          0 01-SEP-09                
+      3030          8          0        1.5        1.5 01-SEP-09                
+      2222          4        1.5          0        1.5 01-SEP-09                
+      2222          3        1.5          0        1.5 01-SEP-06 31-AUG-07      
+      1010          2        1.5        1.5          3 01-SEP-05 31-AUG-08      
+      3333          2        1.5        1.5          3 01-SEP-08                
+      1010          9          3          0          3 01-SEP-08 31-AUG-09      
+
+       DNI        CAS        CTA        CPA        CLA FI        FF             
+---------- ---------- ---------- ---------- ---------- --------- ---------      
+      1010          9        1.5          0        1.5 01-SEP-09                
+      9999          7          3          3          0 01-SEP-10                
+      5555          6          3          3          0 31-MAR-10                
+      6666         10          3        1.5        1.5 01-SEP-08 31-AUG-11      
+      2020          3        1.5          0        1.5 01-SEP-08                
+      7777         12        4.5          3          0 01-SEP-10                
+      8888         11          6          0          0 01-SEP-09                
+      3333          9        1.5          0        1.5 01-SEP-09                
+
+19 rows selected.
+
+SQL> SELECT * FROM PLAN_DOCENTE;
+
+       DNI        CAS        CTA        CPA        CLA FI        FF             
+---------- ---------- ---------- ---------- ---------- --------- ---------      
+      4444          1          3        1.5        1.5 01-SEP-11                
+      4444          4        1.5          0        1.5 01-SEP-08 31-AUG-10      
+      4444          5          3          0          0 01-SEP-10                
+      1111          8          3        1.5        1.5 01-SEP-07 31-AUG-09      
+      1111          8          3          0          0 01-SEP-09                
+      3030          8          0        1.5        1.5 01-SEP-09                
+      2222          4        1.5          0        1.5 01-SEP-09                
+      2222          3        1.5          0        1.5 01-SEP-06 31-AUG-07      
+      1010          2        1.5        1.5          3 01-SEP-05 31-AUG-08      
+      3333          2        1.5        1.5          3 01-SEP-08                
+      1010          9          3          0          3 01-SEP-08 31-AUG-09      
+
+       DNI        CAS        CTA        CPA        CLA FI        FF             
+---------- ---------- ---------- ---------- ---------- --------- ---------      
+      1010          9        1.5          0        1.5 01-SEP-09                
+      9999          7          3          3          0 01-SEP-10                
+      5555          6          3          3          0 31-MAR-10                
+      6666         10          3        1.5        1.5 01-SEP-08 31-AUG-11      
+      2020          3        1.5          0        1.5 01-SEP-08                
+      7777         12        4.5          3          0 01-SEP-10                
+      8888         11          6          0          0 01-SEP-09                
+      3333          9        1.5          0        1.5 01-SEP-09                
+
+19 rows selected.
+
+SQL> COMMIT WORK;
+
+Commit complete.
+
+SQL> SELECT CD, D
+  2  FROM DEPARTAMENTO;
+
+        CD D                                                                    
+---------- ------------------------------------------------------------         
+         1 ANALISIS MATEMATICO                                                  
+         2 ASTROFISICA                                                          
+         3 ESTADISTICA, INVESTIGACION OPERATIVA Y COMPUTACION                   
+         4 MATEMATICA FUNDAMENTAL                                               
+
+SQL> SELECT CAR, AR, CD
+  2  FROM AREA;
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         1 ALGEBRA                                                              
+         4                                                                      
+                                                                                
+         2 ANALISIS MATEMATICO                                                  
+         1                                                                      
+                                                                                
+         3 ASTRONOMIA Y ASTROFISICA                                             
+         2                                                                      
+                                                                                
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         4 CIENCIAS DE LA COMPUTACION E INTELIGENCIA ARTIFICIAL                 
+         3                                                                      
+                                                                                
+         5 DIDACTICA DE LA MATEMATICA                                           
+         1                                                                      
+                                                                                
+         6 ESTADISTICA E INVESTIGACION OPERATIVA                                
+         3                                                                      
+                                                                                
+
+       CAR AR                                                                   
+---------- ------------------------------------------------------------         
+        CD                                                                      
+----------                                                                      
+         7 LENGUAJES Y SISTEMAS INFORMATICOS                                    
+         3                                                                      
+                                                                                
+         8 MATEMATICA APLICADA                                                  
+         1                                                                      
+                                                                                
+
+8 rows selected.
+
+SQL> SELECT DNI, P, CAR, CAT
+  2  FROM PROFESOR;
+
+       DNI P                                                                    
+---------- ------------------------------------------------------------         
+       CAR CAT                                                                  
+---------- -----                                                                
+      1111 JUAN                                                                 
+         6 CU                                                                   
+                                                                                
+      2222 CARLOS                                                               
+         7 TU                                                                   
+                                                                                
+      3333 PEDRO                                                                
+         4 TEU                                                                  
+                                                                                
+
+       DNI P                                                                    
+---------- ------------------------------------------------------------         
+       CAR CAT                                                                  
+---------- -----                                                                
+      4444 MARIA                                                                
+         7 TU                                                                   
+                                                                                
+      5555 IVAN                                                                 
+         1 CEU                                                                  
+                                                                                
+      6666 CARMEN                                                               
+         3 CD                                                                   
+                                                                                
+
+       DNI P                                                                    
+---------- ------------------------------------------------------------         
+       CAR CAT                                                                  
+---------- -----                                                                
+      7777 MARIO                                                                
+         2 TU                                                                   
+                                                                                
+      8888 FRANCISCO                                                            
+         5 TU                                                                   
+                                                                                
+      9999 ANGELA                                                               
+         8 TEU                                                                  
+                                                                                
+
+       DNI P                                                                    
+---------- ------------------------------------------------------------         
+       CAR CAT                                                                  
+---------- -----                                                                
+      1010 DAVID                                                                
+         4 TU                                                                   
+                                                                                
+      2020 SOLEDAD                                                              
+         7 CU                                                                   
+                                                                                
+      3030 JOSE MANUEL                                                          
+         6 TEU                                                                  
+                                                                                
+
+12 rows selected.
+
+SQL> SELECT CAS, A, T, CUR, CAR, NUMBER, CT, CP, CL
+  2  FROM ASIGNATURA;
+SELECT CAS, A, T, CUR, CAR, NUMBER, CT, CP, CL
+                            *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> SELECT CAS, A, T, CUR, CAR, CT, CP, CL
+  2  FROM ASIGNATURA;
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         1 BASES DE DATOS                                     GII           3   
+         7          3        1.5        1.5                                     
+                                                                                
+         2 INTELIGENCIA ARTIFICIAL                            GII           3   
+         4        1.5        1.5          3                                     
+                                                                                
+         3 ALMACENES DE DATOS                                 MII           1   
+         7        1.5          0        1.5                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         4 MINERIA DE DATOS                                   MII           1   
+         7        1.5          0        1.5                                     
+                                                                                
+         5 INFORMATICA BASICA                                 GII           1   
+         7          3        1.5        1.5                                     
+                                                                                
+         6 ALGEBRA                                            GII           1   
+         1          3          3          0                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+         7 CALCULO                                            GII           1   
+         8          3          3          0                                     
+                                                                                
+         8 OPTIMIZACION                                       GII           1   
+         6          3        1.5        1.5                                     
+                                                                                
+        10 ASTRONOMIA                                         GF            2   
+         3          3        1.5        1.5                                     
+                                                                                
+
+       CAS A                                                  T           CUR   
+---------- -------------------------------------------------- ---- ----------   
+       CAR         CT         CP         CL                                     
+---------- ---------- ---------- ----------                                     
+        11 ENSENANZA DE LA MATEMATICA                         GM            2   
+         5          6          0          0                                     
+                                                                                
+        12 ANALISIS COMPLEJO                                  GM            4   
+         2        4.5          3          0                                     
+                                                                                
+         9 GESTION DE RIESGOS                                 GII           3   
+         4          3          0          3                                     
+                                                                                
+
+12 rows selected.
+
+SQL> SELECT DNI, CAS, CTA, CPA, CLA, FI, FF
+  2  FROM PLAN_DOCENTE;
+
+       DNI        CAS        CTA        CPA        CLA FI        FF             
+---------- ---------- ---------- ---------- ---------- --------- ---------      
+      4444          1          3        1.5        1.5 01-SEP-11                
+      4444          4        1.5          0        1.5 01-SEP-08 31-AUG-10      
+      4444          5          3          0          0 01-SEP-10                
+      1111          8          3        1.5        1.5 01-SEP-07 31-AUG-09      
+      1111          8          3          0          0 01-SEP-09                
+      3030          8          0        1.5        1.5 01-SEP-09                
+      2222          4        1.5          0        1.5 01-SEP-09                
+      2222          3        1.5          0        1.5 01-SEP-06 31-AUG-07      
+      1010          2        1.5        1.5          3 01-SEP-05 31-AUG-08      
+      3333          2        1.5        1.5          3 01-SEP-08                
+      1010          9          3          0          3 01-SEP-08 31-AUG-09      
+
+       DNI        CAS        CTA        CPA        CLA FI        FF             
+---------- ---------- ---------- ---------- ---------- --------- ---------      
+      1010          9        1.5          0        1.5 01-SEP-09                
+      9999          7          3          3          0 01-SEP-10                
+      5555          6          3          3          0 31-MAR-10                
+      6666         10          3        1.5        1.5 01-SEP-08 31-AUG-11      
+      2020          3        1.5          0        1.5 01-SEP-08                
+      7777         12        4.5          3          0 01-SEP-10                
+      8888         11          6          0          0 01-SEP-09                
+      3333          9        1.5          0        1.5 01-SEP-09                
+
+19 rows selected.
+
+SQL> SPOOL OFF
