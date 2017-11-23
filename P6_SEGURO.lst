@@ -1,0 +1,193 @@
+SQL> SET PAGESIZE 800
+SQL> SET LINE 800
+SQL> SELECT SYSDATE FROM DUAL;
+
+SYSDATE                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+---------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+23-NOV-17                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+
+SQL> SELECT TO_CHAR(SYSDATE, 'HH:MI:SS') FROM DUAL;
+
+TO_CHAR(                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+--------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+07:24:07                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+
+SQL> SELECT TO_CHAR(SYSDATE, 'DAY:DD:MONTH:YYYY');
+SELECT TO_CHAR(SYSDATE, 'DAY:DD:MONTH:YYYY')
+                                           *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT TO_CHAR(SYSDATE, 'DAY:DD:MONTH:YY');
+SELECT TO_CHAR(SYSDATE, 'DAY:DD:MONTH:YY')
+                                         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT TO_CHAR(SYSDATE, 'DAY:DD:MON:YY');
+SELECT TO_CHAR(SYSDATE, 'DAY:DD:MON:YY')
+                                       *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT TO_CHAR(SYSDATE, 'DAY:DD:MM:YY');
+SELECT TO_CHAR(SYSDATE, 'DAY:DD:MM:YY')
+                                      *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT TO_CHAR(SYSDATE, 'DAY:DD:MM:YYYY');
+SELECT TO_CHAR(SYSDATE, 'DAY:DD:MM:YYYY')
+                                        *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT TO_CHAR(SYSDATE, 'DAY:DD:MONTH:YYYY') FROM DUAL;
+
+TO_CHAR(SYSDATE,'DAY:DD:MONTH:YYYY')                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+---------------------------------------------------------------------------------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+THURSDAY :23:NOVEMBER :2017                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+
+SQL> SELECT TO_CHAR(SYSDATE, 'HH24:MI:SS') FROM DUAL;
+
+TO_CHAR(                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+--------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+19:27:14                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+
+SQL> SELECT TO_DATE(FI.PLAN_DOCENTE) WHERE DNI = 8888 AND CAS = 11 FROM DUAL;
+SELECT TO_DATE(FI.PLAN_DOCENTE) WHERE DNI = 8888 AND CAS = 11 FROM DUAL
+                                *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT SYSDATE TO_DATE('02-SEP-1996') FROM DUAL;
+SELECT SYSDATE TO_DATE('02-SEP-1996') FROM DUAL
+                      *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT SYSDATE_TO_DATE('02-SEP-1996') FROM DUAL;
+SELECT SYSDATE_TO_DATE('02-SEP-1996') FROM DUAL
+       *
+ERROR at line 1:
+ORA-00904: "SYSDATE_TO_DATE": invalid identifier 
+
+
+SQL> SELECT SYSDATE TO_DATE('02-SEP-96') FROM DUAL;
+SELECT SYSDATE TO_DATE('02-SEP-96') FROM DUAL
+                      *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT SYSDATE TO_DATE('02-SEP-96')
+  2  FROM DUAL;
+SELECT SYSDATE TO_DATE('02-SEP-96')
+                      *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT SYSDATE TO_DATE ('02-SEP-96') FROM DUAL;
+SELECT SYSDATE TO_DATE ('02-SEP-96') FROM DUAL
+                       *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT-TO_DATE(FI.PLAN_DOCENTE) WHERE DNI = 8888 AND CAS = 11 FROM DUAL;
+SELECT-TO_DATE(FI.PLAN_DOCENTE) WHERE DNI = 8888 AND CAS = 11 FROM DUAL
+                                *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT (SYSDATE-FI) FROM PLAN_DOCENTE WHERE DNI=8888; = 8888 AND CAS = 11 FROM DUAL;
+SELECT (SYSDATE-FI) FROM PLAN_DOCENTE WHERE DNI=8888; = 8888 AND CAS = 11 FROM DUAL
+                                                    *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT-TO_DATE(FI.PLAN_DOCENTE) WHERE DNI = 8888 AND CAS =11;
+SELECT-TO_DATE(FI.PLAN_DOCENTE) WHERE DNI = 8888 AND CAS =11
+                                *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT (SYSDATE-FI) FROM PLAN_DOCENTE WHERE DNI = 8888 AND CAS =11;
+
+(SYSDATE-FI)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+------------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+  3005.82828                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+
+SQL> SELECT P FROM PROFESOR WHERE ((SYSDATE-FI)>365) FROM PLAN_DOCENTE;
+SELECT P FROM PROFESOR WHERE ((SYSDATE-FI)>365) FROM PLAN_DOCENTE
+                                                *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT P FROM PROFESOR WHERE (SYSDATE-FI>365) FROM PLAN_DOCENTE;
+SELECT P FROM PROFESOR WHERE (SYSDATE-FI>365) FROM PLAN_DOCENTE
+                                              *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT P FROM PROFESOR WHERE DNI IN (SELECT DNI FROM PLAN_DOCENTE WHERE ((SYSDATE-FI)>365));
+
+P                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+------------------------------------------------------------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+JUAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+CARLOS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+PEDRO                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+MARIA                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+IVAN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+CARMEN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+MARIO                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+FRANCISCO                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+ANGELA                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+DAVID                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+SOLEDAD                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+JOSE MANUEL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+
+12 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> SELECT COUNT (DNI) FROM PROFESOR WHERE CAR IN (SELECT CAR FROM AREA WHERE CD IN (SELCT CD FROM DEPARTAMENTO WHERE D = 'ASTROFISICA'));))
+  2  SELECT COUNT (DNI) FROM PROFESOR WHERE CAR IN (SELECT CAR FROM AREA WHERE CD IN (SELCT CD FROM DEPARTAMENTO WHERE D = 'ASTROFISICA'));
+SELECT COUNT (DNI) FROM PROFESOR WHERE CAR IN (SELECT CAR FROM AREA WHERE CD IN (SELCT CD FROM DEPARTAMENTO WHERE D = 'ASTROFISICA'));))
+                                                                                       *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT COUNT (DNI) FROM PROFESOR WHERE CAR IN (SELECT CAR FROM AREA WHERE CD IN (SELCT CD FROM DEPARTAMENTO WHERE D = 'ASTROFISICA'));
+SELECT COUNT (DNI) FROM PROFESOR WHERE CAR IN (SELECT CAR FROM AREA WHERE CD IN (SELCT CD FROM DEPARTAMENTO WHERE D = 'ASTROFISICA'))
+                                                                                       *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT COUNT (DNI) FROM PROFESOR WHERE CAR IN (SELECT CAR FROM AREA WHERE CD IN (SELECT CD FROM DEPARTAMENTO WHERE D = 'ASTROFISICA'));
+
+COUNT(DNI)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+----------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+         1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+
+SQL> SELECT COUNT (DNI) FROM PROFESOR WHERE CAR IN (SELECT CAR FROM AREA WHERE CD IN (SELECT CD FROM DEPARTAMENTO WHERE D = '%'));
+
+COUNT(DNI)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+----------                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+         0                                                                                                                                                                                                                                                                                                                                           
