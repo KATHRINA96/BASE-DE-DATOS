@@ -1,0 +1,120 @@
+SQL> SET PAGESIZE 800
+SQL> SET LINE 800
+SQL> UPDATE VISTA2 SET A='PRUEBA' WHERE DNI=1
+  2  ;
+UPDATE VISTA2 SET A='PRUEBA' WHERE DNI=1
+                  *
+ERROR at line 1:
+ORA-01779: cannot modify a column which maps to a non key-preserved table 
+
+
+SQL> DESCRIBE VISTA2;
+ Name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ DNI                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       NOT NULL NUMBER(8)
+ A                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         NOT NULL VARCHAR2(50)
+ T                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         NOT NULL CHAR(6)
+ CUR                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                NUMBER(1)
+ CAR                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                NUMBER(3)
+
+SQL> DESCRIBE VISTA2;
+ Name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      Null?    Type
+ ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -------- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ DNI                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       NOT NULL NUMBER(8)
+ A                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         NOT NULL VARCHAR2(50)
+ T                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         NOT NULL CHAR(6)
+ CUR                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                NUMBER(1)
+ CAR                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                NUMBER(3)
+
+SQL> DROP VIEW VISTA1;
+
+View dropped.
+
+SQL> DESCRIBE VISTA2;
+ERROR:
+ORA-24372: invalid object for describe 
+
+
+SQL> SELECT * FROM VISTA2;
+SELECT * FROM VISTA2
+              *
+ERROR at line 1:
+ORA-04063: view "ALU0100913293.VISTA2" has errors 
+
+
+SQL> ROLLBACK WORK;
+
+Rollback complete.
+
+SQL> DESCRIBE VISTA1;
+ERROR:
+ORA-04043: object VISTA1 does not exist 
+
+
+SQL> CREATE INDEX INDICE1 ON PROFESOR(P);
+
+Index created.
+
+SQL> DROP INDEX INDICE1;
+
+Index dropped.
+
+SQL> CREATE INDEX INDICE2 ON VISTA1(CAR);
+CREATE INDEX INDICE2 ON VISTA1(CAR)
+                        *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> GRANT SELECT (DEPARTAMENTO, AREA, ASIGNATURA, TITULACION) TO alumno;
+GRANT SELECT (DEPARTAMENTO, AREA, ASIGNATURA, TITULACION) TO alumno
+      *
+ERROR at line 1:
+ORA-00990: missing or invalid privilege 
+
+
+SQL> 
+SQL> GRANT SELECT ON (DEPARTAMENTO, AREA, ASIGNATURA, TITULACION) TO alumno;
+GRANT SELECT ON (DEPARTAMENTO, AREA, ASIGNATURA, TITULACION) TO alumno
+                *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> GRANT SELECT ON DEPARTAMENTO TO alumno;
+
+Grant succeeded.
+
+SQL> GRANT SELECT ON AREA TO alumno;
+
+Grant succeeded.
+
+SQL> GRANT SELECT ON ASIGNATURA TO alumno;
+
+Grant succeeded.
+
+SQL> GRANT SELECT ON TITULACION TO alumno;
+
+Grant succeeded.
+
+SQL> GRANT INSERT, UPDATE, DELETE ON DEPARTAMENTO TO alumno;
+
+Grant succeeded.
+
+SQL> GRANT INSERT, UPDATE, DELETE ON AREA TO alumno;
+
+Grant succeeded.
+
+SQL> GRANT UPDATE ON ASIGNATURA TO alumno;
+
+Grant succeeded.
+
+SQL> GRANT UPDATE ON TITULACION TO alumno;
+
+Grant succeeded.
+
+SQL> COMMIT WORK;
+
+Commit complete.
+
+SQL> SPOOL OFF
